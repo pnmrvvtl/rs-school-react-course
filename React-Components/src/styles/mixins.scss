@@ -1,0 +1,24 @@
+@mixin link-on-hover{
+  font-size: 2rem;
+  color: $font-color-inverted;
+  background-color: $sub-color;
+  padding: 10px;
+  border-radius: 20px;
+  transition: all 0.5s ease;
+
+  &:hover {
+    cursor: pointer;
+    color: $font-color;
+    background-color: $light-color;
+    border-radius: 0;
+  }
+}
+
+@mixin container {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  background-color: $super-light-color;
+  padding-top: 100px;
+  padding-bottom: 75px;
+}

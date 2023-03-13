@@ -6,6 +6,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { Main, Navigation, About, Error } from './routes';
+import './styles/style.scss';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

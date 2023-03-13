@@ -1,0 +1,14 @@
+.header {
+  background-color: $main-color;
+  width: 100%;
+  min-height: 75px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  position: fixed;
+
+  .link {
+    @include link-on-hover;
+  }
+}

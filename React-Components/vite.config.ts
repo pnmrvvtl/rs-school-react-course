@@ -4,18 +4,26 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
-    plugins: [reactRefresh(), eslintPlugin()],
-    resolve: {
-        alias: {
-            '@': resolve(__dirname, './src'),
-        },
+  plugins: [reactRefresh(), eslintPlugin()],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
     },
-    build: {
-        outDir: 'dist',
-        sourcemap: true,
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+  },
+  server: {
+    port: 3000,
+    open: true,
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/styles/variables.scss"; 
+        @import "@/styles/mixins.scss";`,
+      },
     },
-    server: {
-        port: 3000,
-        open: true,
-    },
+  },
 });
