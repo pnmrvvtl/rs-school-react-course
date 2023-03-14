@@ -3,14 +3,14 @@
   color: $font-color-inverted;
   background-color: $sub-color;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 0px;
   transition: all 0.5s ease;
 
   &:hover {
     cursor: pointer;
     color: $font-color;
     background-color: $light-color;
-    border-radius: 0;
+    border-radius: 20px;
   }
 }
 

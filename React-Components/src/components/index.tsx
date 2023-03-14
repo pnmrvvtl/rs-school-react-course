@@ -1,6 +1,6 @@
-import Card from './card/card';
-import Search from './search/search';
-import Header from './header/header';
-import Footer from './footer/footer';
+import Card from './card/card.component';
+import Search from './search/search.component';
+import Header from './header/header.component';
+import Footer from './footer/footer.component';
 
 export { Card, Search, Header, Footer };
