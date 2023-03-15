@@ -1,8 +1,10 @@
 //libs
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 //styles
 import styles from './header.module.scss';
-import { Link } from 'react-router-dom';
+//images
+import Logo from '../../assets/images/logo.gif';
 
 export class Header extends Component {
   render() {
@@ -11,6 +13,7 @@ export class Header extends Component {
         <Link to={'/'}>
           <p className={styles.link}>MAIN</p>
         </Link>
+        <img alt={'react logo'} height={75} src={Logo} />
         <Link to={'/about'}>
           <p className={styles.link}>ABOUT</p>
         </Link>

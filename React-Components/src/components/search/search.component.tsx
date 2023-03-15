@@ -15,6 +15,22 @@ export class Search extends React.Component<object, SearchState> {
     this.state = { searchInputString: '' };
   }
 
+  componentDidMount() {
+    const search = localStorage.getItem('search');
+    if (search) {
+      this.setState({ searchInputString: search });
+    }
+    window.addEventListener('beforeunload', this.saveStateToLocalStorage);
+  }
+
+  saveStateToLocalStorage = () => {
+    localStorage.setItem('search', this.state.searchInputString);
+  };
+
+  componentWillUnmount() {
+    localStorage.setItem('search', this.state.searchInputString);
+  }
+
   render() {
     const { searchInputString } = this.state;
 
@@ -34,7 +50,7 @@ export class Search extends React.Component<object, SearchState> {
               type="button"
               width={50}
               height={50}
-              value={'Search'}
+              value={'SEARCH'}
               onClick={() => setSearchString(searchInputString)}
             />
           </div>
