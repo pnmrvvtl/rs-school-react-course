@@ -1,19 +1,25 @@
 //libs
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 //styles
 import styles from './header.module.scss';
 //images
 import Logo from '../../assets/images/logo.gif';
+import { withRouter, WithRouterProps } from '../../utils/withRouter';
 
-export class Header extends Component {
+export class Header extends React.Component<WithRouterProps> {
   render() {
+    const { pathname } = this.props.location;
+
     return (
       <div className={styles.header}>
         <Link to={'/'}>
           <p className={styles.link}>MAIN</p>
         </Link>
-        <img alt={'react logo'} height={75} src={Logo} />
+        <Link to={'/'}>
+          <img alt={'react logo'} height={75} src={Logo} />{' '}
+        </Link>
+        <div className={styles.location}>{`You are here: ${pathname}`}</div>
         <Link to={'/about'}>
           <p className={styles.link}>ABOUT</p>
         </Link>
@@ -22,4 +28,4 @@ export class Header extends Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);

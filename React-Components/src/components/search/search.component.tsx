@@ -3,7 +3,7 @@ import React from 'react';
 //styles
 import styles from './search.module.scss';
 //contexts
-import { SearchContext } from '../../contexts/search.context';
+import { SearchContext } from '../../contexts/search/search.context';
 
 interface SearchState {
   searchInputString: string;

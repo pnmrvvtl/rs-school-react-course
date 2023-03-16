@@ -5,7 +5,7 @@ import styles from './main.module.scss';
 //components
 import { Card, Search } from '../../components';
 //contexts
-import { SearchContext } from '../../contexts/search.context';
+import { SearchContext } from '../../contexts/search/search.context';
 import { Product } from '../../types/product.type';
 
 interface MainState {
@@ -19,7 +19,7 @@ export class Main extends React.Component<object, MainState> {
   }
 
   render() {
-    const limit = 30;
+    const limit = 10;
 
     return (
       <div className={styles.container}>

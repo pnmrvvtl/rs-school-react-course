@@ -11,10 +11,12 @@ import { Main, Navigation, About, Error } from './routes';
 //styles
 import './styles/style.scss';
 //context
-import { SearchContext } from './contexts/search.context';
+import { SearchContext } from './contexts/search/search.context';
+import { PathContext } from './contexts/path/path.context';
 
 interface AppState {
   searchString: string;
+  path: string;
 }
 
 const router = createBrowserRouter(
@@ -39,8 +41,10 @@ export default class App extends React.Component<object, AppState> {
     super(props);
     this.state = {
       searchString: '',
+      path: '',
     };
     this.setSearchString = this.setSearchString.bind(this);
+    this.setPath = this.setPath.bind(this);
   }
 
   setSearchString(searchString: SetStateAction<string>) {
@@ -50,11 +54,19 @@ export default class App extends React.Component<object, AppState> {
     }));
   }
 
+  setPath(path: SetStateAction<string>) {
+    this.setState((prevState) => ({
+      searchString: typeof path === 'function' ? path(prevState.path) : path,
+    }));
+  }
+
   render() {
-    const { searchString } = this.state;
+    const { searchString, path } = this.state;
     return (
       <SearchContext.Provider value={{ searchString, setSearchString: this.setSearchString }}>
-        <RouterProvider router={router} />;
+        <PathContext.Provider value={{ path, setPath: this.setPath }}>
+          <RouterProvider router={router} />;
+        </PathContext.Provider>
       </SearchContext.Provider>
     );
   }

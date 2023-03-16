@@ -15,6 +15,10 @@
 }
 
 @mixin container {
+
+  @media screen and (max-width: 450px) {
+    padding-top: 150px;
+  }
   width: 100%;
   min-height: 100%;
   box-sizing: border-box;
