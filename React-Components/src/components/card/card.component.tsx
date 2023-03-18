@@ -16,9 +16,9 @@ export class Card extends React.Component<CardProps> {
     return (
       <div className={styles.container}>
         <img className={styles['main-image']} src={images[0]} alt={`${title}`} />
-        <div className={styles['small-images']}>
-          <img width={50} height={50} src={images[1]} alt={`${title} sub-image 1`} />
-          <img width={50} height={50} src={images[2]} alt={`${title} sub-image 2`} />
+        <div className={styles['buttons']}>
+          <input type={'button'} className={styles['buy-button']} value={'BUY NOW'} />
+          <input type={'button'} className={styles['add-button']} value={'ADD TO CART'} />
         </div>
         <div className={styles.title}>
           <h4>{title}</h4>

@@ -4,6 +4,8 @@ import React from 'react';
 import styles from './main.module.scss';
 //components
 import { Card, Search } from '../../components';
+//mock
+import mockObjects from '../../data.json';
 //contexts
 import { SearchContext } from '../../contexts/search/search.context';
 import { Product } from '../../types/product.type';
@@ -15,7 +17,7 @@ interface MainState {
 export class Main extends React.Component<object, MainState> {
   constructor(props: object) {
     super(props);
-    this.state = { products: [] };
+    this.state = { products: mockObjects };
   }
 
   render() {
@@ -36,7 +38,7 @@ export class Main extends React.Component<object, MainState> {
           {this.state.products.length ? (
             this.state.products.map((el) => <Card product={el} key={el.id} />)
           ) : (
-            <h1>Sorry we dont have products that match your search. Please repeat input.</h1>
+            <h1>Sorry we dont have products that match your search. Please repeat search input.</h1>
           )}
         </div>
       </div>
