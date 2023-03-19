@@ -18,9 +18,9 @@ export class Header extends React.Component<WithRouterProps> {
           <p className={styles.link}>MAIN</p>
         </Link>
         <Link to={'/'}>
-          <img alt={'react logo'} height={75} src={Logo} />{' '}
+          <img alt={'react logo'} height={75} src={Logo} />
         </Link>
-        <div className={styles.location}>{`You are here: ${pathname}`}</div>
+        <div className={styles.location}>{`You are here: ${decodeURI(pathname)}`}</div>
         <Link to={'/about'}>
           <p className={styles.link}>ABOUT</p>
         </Link>

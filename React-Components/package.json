@@ -8,10 +8,10 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest",
-    "lint": "eslint src --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx",
     "coverage": "vitest run --coverage"
   },
-  "author": "",
+  "author": "Ponomarov Vitalii",
   "license": "ISC",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
