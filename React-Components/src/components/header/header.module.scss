@@ -1,0 +1,24 @@
+.header {
+  background-color: $main-color;
+  width: 100%;
+  min-height: 75px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  position: fixed;
+
+
+  .location {
+    font-size: 2rem;
+    color: $font-color-inverted;
+  }
+  .link {
+    @include link-on-hover;
+
+    .current {
+      text-decoration: underline;
+      font-size: 2.2rem;
+    }
+  }
+}
