@@ -8,11 +8,8 @@ import { Card, Search } from '../../components';
 import mockObjects from '../../data.json';
 //contexts
 import { SearchContext } from '../../contexts/search/search.context';
-import { Product } from '../../types/product.type';
-
-interface MainState {
-  products: Product[];
-}
+//types
+import { MainState } from '../../types/states.type';
 
 export class Main extends React.Component<object, MainState> {
   constructor(props: object) {

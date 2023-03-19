@@ -1,13 +1,9 @@
 //libs
 import React from 'react';
 //types
-import { Product } from '../../types/product.type';
+import { CardProps } from '../../types/propses.type';
 //styles
 import styles from './card.module.scss';
-
-interface CardProps {
-  product: Product;
-}
 
 export class Card extends React.Component<CardProps> {
   render() {

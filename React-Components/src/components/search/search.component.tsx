@@ -4,10 +4,8 @@ import React from 'react';
 import styles from './search.module.scss';
 //contexts
 import { SearchContext } from '../../contexts/search/search.context';
-
-interface SearchState {
-  searchInputString: string;
-}
+//type
+import { SearchState } from '../../types/states.type';
 
 export class Search extends React.Component<object, SearchState> {
   constructor(props: object) {

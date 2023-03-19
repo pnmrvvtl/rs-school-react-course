@@ -1,10 +1,10 @@
 //libs
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 //assets
 import ErrorImage from '../../assets/images/404.png';
 //styles
 import styles from './error.module.scss';
-import { Link } from 'react-router-dom';
 
 export class Error extends Component {
   render() {

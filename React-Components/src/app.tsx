@@ -1,23 +1,14 @@
 //libs
 import React, { SetStateAction } from 'react';
-import {
-  createRoutesFromElements,
-  Route,
-  createBrowserRouter,
-  RouterProvider,
-  Routes,
-  BrowserRouter,
-} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 //components
-import { Main, Navigation, About, Error } from './routes';
+import { About, Error, Main, Navigation } from './routes';
 //styles
 import './styles/style.scss';
 //context
 import { SearchContext } from './contexts/search/search.context';
-
-interface AppState {
-  searchString: string;
-}
+//types
+import { AppState } from './types/states.type';
 
 export default class App extends React.Component<object, AppState> {
   constructor(props: object) {

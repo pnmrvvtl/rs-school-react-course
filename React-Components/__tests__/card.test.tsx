@@ -1,8 +1,10 @@
+//libs
 import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-
+//components
 import { Card } from '../src/components/';
+//types
 import { Product } from '../src/types/product.type';
 
 const mockProduct: Product = {

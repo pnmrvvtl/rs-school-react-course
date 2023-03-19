@@ -1,7 +1,8 @@
+//libs
 import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-
+//components
 import { Navigation } from '../src/routes/';
 import { BrowserRouter as Router } from 'react-router-dom';
 

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from './header.module.scss';
 //images
 import Logo from '../../assets/images/logo.gif';
+//utils
 import { withRouter, WithRouterProps } from '../../utils/withRouter';
 
 export class Header extends React.Component<WithRouterProps> {
