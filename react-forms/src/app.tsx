@@ -9,6 +9,7 @@ import './styles/style.scss';
 import { SearchContext } from './contexts/search/search.context';
 //types
 import { AppState } from './types/states.type';
+import AddProduct from './routes/add-product/add-product.route';
 
 export default class App extends React.Component<object, AppState> {
   constructor(props: object) {
@@ -34,6 +35,7 @@ export default class App extends React.Component<object, AppState> {
           <Route path="/" element={<Navigation />}>
             <Route index element={<Main />} />
             <Route path="about" element={<About />} />
+            <Route path="form" element={<AddProduct />} />
             <Route path="*" element={<Error />} />
           </Route>
         </Routes>

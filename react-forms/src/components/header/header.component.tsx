@@ -17,6 +17,9 @@ export class Header extends React.Component<WithRouterProps> {
         <Link to={'/'}>
           <p className={styles.link}>MAIN</p>
         </Link>
+        <Link to={'/form'}>
+          <p className={styles.link}>FORM</p>
+        </Link>
         <Link to={'/'}>
           <img alt={'react logo'} height={75} src={Logo} />
         </Link>

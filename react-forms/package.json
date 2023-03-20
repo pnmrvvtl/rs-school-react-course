@@ -10,6 +10,15 @@
     "test": "vitest run --coverage",
     "lint": "eslint . --ext .ts,.tsx"
   },
+  "prettier": {
+    "endOfLine": "auto",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "printWidth": 100,
+    "arrowParens": "always"
+  },
   "author": "Ponomarov Vitalii",
   "license": "ISC",
   "devDependencies": {
