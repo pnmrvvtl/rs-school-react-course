@@ -1,9 +1,9 @@
 //libs
 import React from 'react';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 //components
-import { Navigation } from '../src/routes/';
+import { Navigation } from './navigation.route';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('Navigation', () => {

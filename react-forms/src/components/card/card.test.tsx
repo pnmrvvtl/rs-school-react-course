@@ -3,9 +3,9 @@ import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 //components
-import { Card } from '../src/components/';
+import { Card } from './card.component';
 //types
-import { Product } from '../src/types/product.type';
+import { Product } from '../../types/product.type';
 
 const mockProduct: Product = {
   id: 1,
