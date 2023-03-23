@@ -12,3 +12,19 @@ export interface SearchState {
 export interface MainState {
   products: Product[];
 }
+
+export interface ProductFormState {
+  errors: {
+    priceInputError?: string;
+    titleInputError?: string;
+    discountInputError?: string;
+    ratingInputError?: string;
+    producedAtInputError?: string;
+    brandInputError?: string;
+    categoryInputError?: string;
+    publishInputError?: string;
+    wasInUseInputError?: string;
+    photoInputError?: string;
+  };
+  isConfirmed: boolean;
+}

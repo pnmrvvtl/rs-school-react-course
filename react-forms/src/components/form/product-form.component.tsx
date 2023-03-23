@@ -2,25 +2,14 @@
 import React, { createRef, RefObject } from 'react';
 //styles
 import styles from './product-form.module.scss';
+//contexts
 import { ProductsContext } from '../../contexts/products/products.context';
+//types
+import { ProductFormState } from '../../types/states.type';
 
-interface MyFormState {
-  errors: {
-    priceInputError?: string;
-    titleInputError?: string;
-    discountInputError?: string;
-    ratingInputError?: string;
-    producedAtInputError?: string;
-    brandInputError?: string;
-    categoryInputError?: string;
-    publishInputError?: string;
-    wasInUseInputError?: string;
-    photoInputError?: string;
-  };
-}
-
-class ProductForm extends React.Component<object, MyFormState> {
+class ProductForm extends React.Component<object, ProductFormState> {
   private readonly priceInput: RefObject<HTMLInputElement>;
+  private readonly discountInput: RefObject<HTMLInputElement>;
   private readonly titleInput: RefObject<HTMLInputElement>;
   private readonly ratingInput: RefObject<HTMLInputElement>;
   private readonly producedAtInput: RefObject<HTMLInputElement>;
@@ -39,6 +28,7 @@ class ProductForm extends React.Component<object, MyFormState> {
     super(props);
     this.state = {
       errors: {},
+      isConfirmed: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,6 +44,7 @@ class ProductForm extends React.Component<object, MyFormState> {
     this.refurbishedInput = createRef<HTMLInputElement>();
     this.usedInput = createRef<HTMLInputElement>();
     this.photoInput = createRef<HTMLInputElement>();
+    this.discountInput = createRef<HTMLInputElement>();
   }
 
   clearForm() {
@@ -71,12 +62,15 @@ class ProductForm extends React.Component<object, MyFormState> {
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const errors: MyFormState['errors'] = {};
+    const errors: ProductFormState['errors'] = {};
 
     !this.titleInput.current?.value && (errors.titleInputError = 'Please enter title');
 
     (!this.priceInput.current?.value || isNaN(Number(this.priceInput.current?.value))) &&
       (errors.priceInputError = 'Please enter correct price, must be number');
+
+    (!this.discountInput.current?.value || isNaN(Number(this.discountInput.current?.value))) &&
+      (errors.discountInputError = 'Please enter correct discount, must be number');
 
     (!this.ratingInput.current?.value || isNaN(Number(this.ratingInput.current?.value))) &&
       (errors.ratingInputError = 'Please enter correct rating, must be number');
@@ -99,23 +93,32 @@ class ProductForm extends React.Component<object, MyFormState> {
 
     if (Object.keys(errors).length === 0) {
       //submit form
-      this.context.setProducts([
-        ...this.context.products,
-        {
-          id: Math.random(),
-          title: this.titleInput.current!.value,
-          price: Number(this.priceInput.current!.value),
-          rating: Number(this.ratingInput.current!.value),
-          discountPercentage: 0,
-          category: this.categoryInput.current!.value,
-          brand: this.categoryInput.current!.value,
-          images: [],
-          description: '',
-          stock: 1,
-          thumbnail: '',
-        },
-      ]);
-      this.clearForm();
+      const file = this.photoInput.current?.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.context.setProducts([
+            ...this.context.products,
+            {
+              id: Math.random(),
+              title: this.titleInput.current!.value,
+              price: Number(this.priceInput.current!.value),
+              rating: Number(this.ratingInput.current!.value),
+              discountPercentage: Number(this.discountInput.current!.value),
+              category: this.categoryInput.current!.value,
+              brand: this.categoryInput.current!.value,
+              images: [reader.result as string],
+              description: '',
+              stock: 1,
+              thumbnail: '',
+            },
+          ]);
+          this.clearForm();
+          this.setState({ errors, isConfirmed: true });
+          setTimeout(() => this.setState({ errors, isConfirmed: false }), 2000);
+        };
+      }
     } else {
       this.setState({ errors });
     }
@@ -150,6 +153,16 @@ class ProductForm extends React.Component<object, MyFormState> {
           </label>
           <div className={`${!errors.ratingInputError && styles.invisible} ${styles.error}`}>
             {errors.ratingInputError}
+          </div>
+        </div>
+
+        <div className={styles.input}>
+          <label htmlFor="discountInput">
+            Enter product discount:{' '}
+            <input type="text" id="discountInput" ref={this.discountInput} />
+          </label>
+          <div className={`${!errors.discountInputError && styles.invisible} ${styles.error}`}>
+            {errors.discountInputError}
           </div>
         </div>
 
@@ -257,6 +270,9 @@ class ProductForm extends React.Component<object, MyFormState> {
           </div>
         </div>
         <button type="submit">Add Product</button>
+        <span className={`${!this.state.isConfirmed && styles.invisible}`}>
+          Your product is added and form is cleared.
+        </span>
       </form>
     );
   }
