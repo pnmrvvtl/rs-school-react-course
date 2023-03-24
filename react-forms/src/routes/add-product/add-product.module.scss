@@ -1,4 +1,8 @@
 .container {
+  @media screen and (max-width: 550px){
+    padding-top: 150px;
+  }
+
   padding-left: 20px;
   padding-top: 80px;
   padding-bottom: 70px;
@@ -15,14 +19,14 @@
 
 .products {
   padding: 10px;
-  border: 3px solid $main-color;
+  border: 2px solid $main-color;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
   min-width: calc(100% - 400px);
-  min-height: calc(100vh - 182px);
+  min-height: calc(100vh - 172px);
   transition: border-radius 0.5s ease;
 
   &:hover {

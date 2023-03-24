@@ -5,7 +5,7 @@ import styles from './add-product.module.scss';
 //context
 import { ProductsContext } from '../../contexts/products/products.context';
 //components
-import ProductForm from '../../components/form/product-form.component';
+import ProductForm from '../../components/product-form/product-form.component';
 import { Card } from '../../components';
 
 class AddProduct extends Component {
@@ -15,7 +15,7 @@ class AddProduct extends Component {
         <ProductForm />
         <section className={styles.products}>
           <ProductsContext.Consumer>
-            {({ products }) => products.map((el) => <Card key={el.id} product={el} />)}
+            {({ products }) => products.map((el, idx) => <Card key={idx} product={el} />)}
           </ProductsContext.Consumer>
         </section>
       </div>

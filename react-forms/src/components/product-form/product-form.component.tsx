@@ -6,6 +6,7 @@ import styles from './product-form.module.scss';
 import { ProductsContext } from '../../contexts/products/products.context';
 //types
 import { ProductFormState } from '../../types/states.type';
+import { InputSelect, InputText } from '../index';
 
 class ProductForm extends React.Component<object, ProductFormState> {
   private readonly priceInput: RefObject<HTMLInputElement>;
@@ -51,12 +52,15 @@ class ProductForm extends React.Component<object, ProductFormState> {
     this.setState({ errors: {} });
     this.priceInput.current!.value = '';
     this.titleInput.current!.value = '';
+    this.discountInput.current!.value = '';
     this.ratingInput.current!.value = '';
     this.producedAtInput.current!.value = '';
     this.brandInput.current!.value = '';
     this.categoryInput.current!.value = '';
-    this.publishInput.current!.value = '';
-    this.newInput.current!.checked = true;
+    this.publishInput.current!.checked = false;
+    this.newInput.current!.checked = false;
+    this.refurbishedInput.current!.checked = false;
+    this.usedInput.current!.checked = false;
     this.photoInput.current!.value = '';
   }
 
@@ -96,18 +100,25 @@ class ProductForm extends React.Component<object, ProductFormState> {
       const file = this.photoInput.current?.files?.[0];
       if (file) {
         const reader = new FileReader();
+        const state = this.refurbishedInput.current?.checked
+          ? 'refurbished'
+          : this.newInput.current?.checked
+          ? 'new'
+          : 'used';
         reader.readAsDataURL(file);
         reader.onload = () => {
           this.context.setProducts([
             ...this.context.products,
             {
               id: Math.random(),
-              title: this.titleInput.current!.value,
+              title: `${state} (${this.producedAtInput.current?.value}) ${
+                this.titleInput.current!.value
+              }`,
               price: Number(this.priceInput.current!.value),
               rating: Number(this.ratingInput.current!.value),
               discountPercentage: Number(this.discountInput.current!.value),
               category: this.categoryInput.current!.value,
-              brand: this.categoryInput.current!.value,
+              brand: this.brandInput.current!.value,
               images: [reader.result as string],
               description: '',
               stock: 1,
@@ -116,7 +127,7 @@ class ProductForm extends React.Component<object, ProductFormState> {
           ]);
           this.clearForm();
           this.setState({ errors, isConfirmed: true });
-          setTimeout(() => this.setState({ errors, isConfirmed: false }), 2000);
+          setTimeout(() => this.setState({ errors, isConfirmed: false }), 5000);
         };
       }
     } else {
@@ -126,45 +137,35 @@ class ProductForm extends React.Component<object, ProductFormState> {
 
   render() {
     const { errors } = this.state;
+    const BRANDS = ['Apple', 'Samsung', 'Xiaomi'];
+    const CATEGORIES = ['Phone', 'Notebook', 'TV', 'Smart Watch'];
+
     return (
       <form onSubmit={this.handleSubmit} className={styles.container}>
-        <div className={styles.input}>
-          <label htmlFor="titleInput">
-            Enter product title: <input type="text" id="titleInput" ref={this.titleInput} />
-          </label>
-          <div className={`${!errors.titleInputError && styles.invisible} ${styles.error}`}>
-            {errors.titleInputError}
-          </div>
-        </div>
-
-        <div className={styles.input}>
-          <label htmlFor="priceInput">
-            Enter product price:
-            <input type="text" id="priceInput" ref={this.priceInput} />
-          </label>
-          <div className={`${!errors.priceInputError && styles.invisible} ${styles.error}`}>
-            {errors.priceInputError}
-          </div>
-        </div>
-
-        <div className={styles.input}>
-          <label htmlFor="ratingInput">
-            Enter product rating: <input type="text" id="ratingInput" ref={this.ratingInput} />
-          </label>
-          <div className={`${!errors.ratingInputError && styles.invisible} ${styles.error}`}>
-            {errors.ratingInputError}
-          </div>
-        </div>
-
-        <div className={styles.input}>
-          <label htmlFor="discountInput">
-            Enter product discount:{' '}
-            <input type="text" id="discountInput" ref={this.discountInput} />
-          </label>
-          <div className={`${!errors.discountInputError && styles.invisible} ${styles.error}`}>
-            {errors.discountInputError}
-          </div>
-        </div>
+        <InputText
+          title={'Enter product title:'}
+          myRef={this.titleInput}
+          error={errors.titleInputError}
+          name={'title'}
+        />
+        <InputText
+          title={'Enter product price:'}
+          myRef={this.priceInput}
+          error={errors.priceInputError}
+          name={'price'}
+        />
+        <InputText
+          title={'Enter product rating:'}
+          myRef={this.ratingInput}
+          error={errors.ratingInputError}
+          name={'rating'}
+        />
+        <InputText
+          title={'Enter product discount:'}
+          myRef={this.discountInput}
+          error={errors.discountInputError}
+          name={'discount'}
+        />
 
         <div className={styles.input}>
           <label htmlFor="producedAtInput">
@@ -176,35 +177,18 @@ class ProductForm extends React.Component<object, ProductFormState> {
           </div>
         </div>
 
-        <div className={styles.input}>
-          <label htmlFor="categoryInput">
-            Select category:
-            <select id="categoryInput" ref={this.categoryInput}>
-              <option value="">--Please choose an option--</option>
-              <option value="Phone">Phone</option>
-              <option value="Tablet">Tablet</option>
-              <option value="Notebook">Notebook</option>
-            </select>
-          </label>
-          <div className={`${!errors.categoryInputError && styles.invisible} ${styles.error}`}>
-            {errors.categoryInputError}
-          </div>
-        </div>
-
-        <div className={styles.input}>
-          <label htmlFor="brandInput">
-            Select brand:
-            <select id="brandInput" ref={this.brandInput}>
-              <option value="">--Please choose an option--</option>
-              <option value="Apple">Apple</option>
-              <option value="Samsung">Samsung</option>
-              <option value="Xiaomi">Xiaomi</option>
-            </select>
-          </label>
-          <div className={`${!errors.brandInputError && styles.invisible} ${styles.error}`}>
-            {errors.brandInputError}
-          </div>
-        </div>
+        <InputSelect
+          name={'categoryInput'}
+          myRef={this.categoryInput}
+          error={this.state.errors.categoryInputError}
+          options={CATEGORIES}
+        />
+        <InputSelect
+          name={'brandInput'}
+          myRef={this.brandInput}
+          error={this.state.errors.brandInputError}
+          options={BRANDS}
+        />
 
         <div className={styles.input}>
           <label htmlFor="publishInput">
@@ -226,7 +210,6 @@ class ProductForm extends React.Component<object, ProductFormState> {
                 name="radioInput"
                 ref={this.newInput}
                 value="new"
-                defaultChecked
               />
               No, this is new product.
             </label>

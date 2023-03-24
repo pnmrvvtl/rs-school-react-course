@@ -13,18 +13,20 @@ export interface MainState {
   products: Product[];
 }
 
+export interface ErrorsType {
+  priceInputError?: string;
+  titleInputError?: string;
+  discountInputError?: string;
+  ratingInputError?: string;
+  producedAtInputError?: string;
+  brandInputError?: string;
+  categoryInputError?: string;
+  publishInputError?: string;
+  wasInUseInputError?: string;
+  photoInputError?: string;
+}
+
 export interface ProductFormState {
-  errors: {
-    priceInputError?: string;
-    titleInputError?: string;
-    discountInputError?: string;
-    ratingInputError?: string;
-    producedAtInputError?: string;
-    brandInputError?: string;
-    categoryInputError?: string;
-    publishInputError?: string;
-    wasInUseInputError?: string;
-    photoInputError?: string;
-  };
+  errors: ErrorsType;
   isConfirmed: boolean;
 }
