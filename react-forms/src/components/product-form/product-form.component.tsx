@@ -6,6 +6,7 @@ import styles from './product-form.module.scss';
 import { ProductsContext } from '../../contexts/products/products.context';
 //types
 import { ProductFormState } from '../../types/states.type';
+//components
 import { InputSelect, InputText } from '../index';
 
 class ProductForm extends React.Component<object, ProductFormState> {
@@ -107,13 +108,14 @@ class ProductForm extends React.Component<object, ProductFormState> {
           : 'used';
         reader.readAsDataURL(file);
         reader.onload = () => {
+          const title = this.publishInput.current?.checked
+            ? `${state} (${this.producedAtInput.current?.value}) ${this.titleInput.current!.value}`
+            : `${state} ${this.titleInput.current!.value}`;
           this.context.setProducts([
             ...this.context.products,
             {
               id: Math.random(),
-              title: `${state} (${this.producedAtInput.current?.value}) ${
-                this.titleInput.current!.value
-              }`,
+              title,
               price: Number(this.priceInput.current!.value),
               rating: Number(this.ratingInput.current!.value),
               discountPercentage: Number(this.discountInput.current!.value),
@@ -178,13 +180,13 @@ class ProductForm extends React.Component<object, ProductFormState> {
         </div>
 
         <InputSelect
-          name={'categoryInput'}
+          name={'category'}
           myRef={this.categoryInput}
           error={this.state.errors.categoryInputError}
           options={CATEGORIES}
         />
         <InputSelect
-          name={'brandInput'}
+          name={'brand'}
           myRef={this.brandInput}
           error={this.state.errors.brandInputError}
           options={BRANDS}
@@ -192,7 +194,7 @@ class ProductForm extends React.Component<object, ProductFormState> {
 
         <div className={styles.input}>
           <label htmlFor="publishInput">
-            Publish this product to site:{' '}
+            Put produce date to the title of product:
             <input type="checkbox" id="publishInput" ref={this.publishInput} />
           </label>
           <div className={`${!errors.publishInputError && styles.invisible} ${styles.error}`}>
@@ -246,7 +248,13 @@ class ProductForm extends React.Component<object, ProductFormState> {
 
         <div className={styles.input}>
           <label htmlFor="photoInput">
-            File Input: <input type="file" id="photoInput" ref={this.photoInput} />
+            Image of product:{' '}
+            <input
+              type="file"
+              id="photoInput"
+              ref={this.photoInput}
+              accept="image/png, image/gif, image/jpeg, image/svg, image/jpg, image/ico"
+            />
           </label>
           <div className={`${!errors.photoInputError && styles.invisible} ${styles.error}`}>
             {errors.photoInputError}

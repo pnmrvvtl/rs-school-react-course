@@ -10,7 +10,7 @@ class InputSelect extends Component<InputSelectProps> {
     return (
       <div className={styles.input}>
         <label htmlFor={this.props.name}>
-          Select brand:
+          Select {this.props.name}:
           <select id={this.props.name} ref={this.props.myRef}>
             <option value="">--Please choose an option--</option>
             {this.props.options.map((el, idx) => (

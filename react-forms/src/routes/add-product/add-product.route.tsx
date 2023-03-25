@@ -5,7 +5,7 @@ import styles from './add-product.module.scss';
 //context
 import { ProductsContext } from '../../contexts/products/products.context';
 //components
-import ProductForm from '../../components/product-form/product-form.component';
+import { ProductForm } from '../../components/index';
 import { Card } from '../../components';
 
 class AddProduct extends Component {
