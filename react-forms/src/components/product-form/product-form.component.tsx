@@ -129,7 +129,7 @@ class ProductForm extends React.Component<object, ProductFormState> {
           ]);
           this.clearForm();
           this.setState({ errors, isConfirmed: true });
-          setTimeout(() => this.setState({ errors, isConfirmed: false }), 5000);
+          setTimeout(() => this.setState({ errors, isConfirmed: false }), 7000);
         };
       }
     } else {
@@ -261,9 +261,9 @@ class ProductForm extends React.Component<object, ProductFormState> {
           </div>
         </div>
         <button type="submit">Add Product</button>
-        <span className={`${!this.state.isConfirmed && styles.invisible}`}>
-          Your product is added and form is cleared.
-        </span>
+        <h4 className={`${!this.state.isConfirmed && styles.invisible}`}>
+          PRODUCT - ADDED, FORM - CLEARED.
+        </h4>
       </form>
     );
   }
