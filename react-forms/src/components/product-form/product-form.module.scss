@@ -1,0 +1,69 @@
+.container {
+  min-width: 300px;
+  border: 2px solid $main-color;
+  padding: 10px;
+  transition: border-radius 0.5s ease;
+  font-size: 1.2rem;
+  color: $font-color;
+
+  &:hover {
+    border-radius: 10px;
+  }
+
+  input, select, button {
+    background-color: $sub-color;
+    border: 1px solid $light-color;
+    padding: 4px;
+    transition: all 0.5s ease;
+    color: $font-color-inverted;
+
+    &:hover, &:active, &:focus:not(button) {
+      outline: none;
+      border-radius: 5px;
+      background-color: $light-color;
+      border: 1px solid $main-color;
+      color: $font-color;
+    }
+
+  }
+
+  button {
+    padding: 5px;
+  }
+
+  .error {
+    color: $font-color-error;
+    font-size: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .invisible {
+    color: transparent;
+  }
+
+  .input {
+    display: flex;
+    flex-direction: column;
+
+    &.radio {
+      label {
+        input {
+          margin: 5px;
+        }
+        justify-content: flex-start;
+      }
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  h4 {
+    display: inline;
+    color: $font-color-error;
+  }
+}
+

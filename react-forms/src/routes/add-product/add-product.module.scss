@@ -1,0 +1,35 @@
+.container {
+  @media screen and (max-width: 550px){
+    padding-top: 150px;
+  }
+
+  padding-left: 20px;
+  padding-top: 80px;
+  padding-bottom: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: $super-light-color;
+  gap: 10px;
+  min-width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.products {
+  padding: 10px;
+  border: 2px solid $main-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: calc(100% - 400px);
+  min-height: calc(100vh - 172px);
+  transition: border-radius 0.5s ease;
+
+  &:hover {
+    border-radius: 10px;
+  }
+}
