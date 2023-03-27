@@ -50,6 +50,6 @@ describe('product form', () => {
     const user = userEvent.setup();
     await user.click(screen.getByText(/add product/i));
 
-    expect(screen.getByText(/product is added/i)).toBeInTheDocument();
+    expect(screen.getByText(/product - added/i)).toBeInTheDocument();
   });
 });
