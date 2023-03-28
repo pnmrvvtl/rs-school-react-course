@@ -1,31 +1,25 @@
 //libs
-import React, { Component } from 'react';
+import React from 'react';
 //styles
 import styles from './input-select.module.scss';
 //types
 import { InputSelectProps } from '../../types/propses.type';
 
-class InputSelect extends Component<InputSelectProps> {
-  render() {
-    return (
-      <div className={styles.input}>
-        <label htmlFor={this.props.name}>
-          Select {this.props.name}:
-          <select id={this.props.name} ref={this.props.myRef}>
-            <option value="">--Please choose an option--</option>
-            {this.props.options.map((el, idx) => (
-              <option value={el} key={idx}>
-                {el}
-              </option>
-            ))}
-          </select>
-        </label>
-        <div className={`${!this.props.error && styles.invisible} ${styles.error}`}>
-          {this.props.error}
-        </div>
-      </div>
-    );
-  }
+export default function InputSelect(props: InputSelectProps) {
+  return (
+    <div className={styles.input}>
+      <label htmlFor={props.name}>
+        Select {props.name}:
+        <select id={props.name} ref={props.myRef}>
+          <option value="">--Please choose an option--</option>
+          {props.options.map((el, idx) => (
+            <option value={el} key={idx}>
+              {el}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div className={`${!props.error && styles.invisible} ${styles.error}`}>{props.error}</div>
+    </div>
+  );
 }
-
-export default InputSelect;

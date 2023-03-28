@@ -1,5 +1,5 @@
 //libs
-import React, { Component } from 'react';
+import React from 'react';
 //components
 import { Outlet } from 'react-router-dom';
 import { Footer, Header } from '../../components';
@@ -8,16 +8,12 @@ import styles from './navigation.module.scss';
 //types
 import { NavigationProps } from '../../types/propses.type';
 
-export class Navigation extends Component<NavigationProps> {
-  render() {
-    return (
-      <div className={styles.container}>
-        <Header />
-        {this.props.children || <Outlet />}
-        <Footer />
-      </div>
-    );
-  }
+export default function Navigation(props: NavigationProps) {
+  return (
+    <div className={styles.container}>
+      <Header />
+      {props.children || <Outlet />}
+      <Footer />
+    </div>
+  );
 }
-
-export default Navigation;
