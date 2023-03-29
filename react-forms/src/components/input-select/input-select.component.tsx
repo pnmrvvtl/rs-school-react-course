@@ -10,7 +10,7 @@ export default function InputSelect(props: InputSelectProps) {
     <div className={styles.input}>
       <label htmlFor={props.name}>
         Select {props.name}:
-        <select id={props.name} ref={props.myRef}>
+        <select id={props.name} {...props.register(props.name)}>
           <option value="">--Please choose an option--</option>
           {props.options.map((el, idx) => (
             <option value={el} key={idx}>

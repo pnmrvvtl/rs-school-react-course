@@ -10,7 +10,7 @@ export default function InputText(props: InputTextProps) {
     <div className={styles.input}>
       <label htmlFor={props.name}>
         {props.title}
-        <input type="text" id={props.name} ref={props.myRef} />
+        <input {...props.register(props.name)} type="text" id={props.name} />
       </label>
       <div className={`${!props.error && styles.invisible} ${styles.error}`}>{props.error}</div>
     </div>
