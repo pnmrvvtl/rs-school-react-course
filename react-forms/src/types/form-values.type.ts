@@ -3,7 +3,7 @@ export interface FormValues {
   price: number;
   rating: number;
   discount: number;
-  producedAt: string;
+  producedAt: Date;
   category: string;
   brand: string;
   publish: boolean;

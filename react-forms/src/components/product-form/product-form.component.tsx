@@ -65,7 +65,7 @@ export default function ProductForm() {
         reader.readAsDataURL(file);
         reader.onload = () => {
           const title = data.publish
-            ? `${state} (${data.producedAt}) ${data.title}`
+            ? `${state} (${data.producedAt.toLocaleDateString()}) ${data.title}`
             : `${state} ${data.title}`;
           setProducts([
             ...products,
@@ -146,7 +146,7 @@ export default function ProductForm() {
       <div className={styles.input}>
         <label htmlFor="publishInput">
           Put produce date to the title of product:
-          <input type="checkbox" id="publishInput" />
+          <input {...register('publish')} type="checkbox" id="publishInput" />
         </label>
         <div className={`${!errors.publish && styles.invisible} ${styles.error}`}>
           {errors.publish?.message}

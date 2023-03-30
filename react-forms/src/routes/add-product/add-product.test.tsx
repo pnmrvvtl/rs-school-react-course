@@ -21,6 +21,6 @@ describe('AddProduct Route', () => {
     render(<AddProduct />);
     const user = userEvent.setup();
     await user.click(screen.getByText(/add product/i));
-    expect(screen.getAllByText(/please enter/i)[0]).toHaveStyle(`color: $font-color-error`);
+    expect(screen.getAllByText(/please input/i)[0]).toHaveStyle(`color: $font-color-error`);
   });
 });
