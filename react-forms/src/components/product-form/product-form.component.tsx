@@ -101,18 +101,21 @@ export default function ProductForm() {
         error={errors.title?.message}
         name={'title'}
       />
+
       <InputText
         register={register}
         title={'Enter product price:'}
         error={errors.price?.message}
         name={'price'}
       />
+
       <InputText
         register={register}
         title={'Enter product rating:'}
         error={errors.rating?.message}
         name={'rating'}
       />
+
       <InputText
         register={register}
         title={'Enter product discount:'}
@@ -136,6 +139,7 @@ export default function ProductForm() {
         error={errors.category?.message}
         options={CATEGORIES}
       />
+
       <InputSelect
         register={register}
         name={'brand'}
