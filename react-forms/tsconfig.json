@@ -13,7 +13,8 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["vite/client"]
   },
   "include": ["./src/**/*", "styled.d.ts",
     "./__tests__/**/*", "vite.config.ts"]

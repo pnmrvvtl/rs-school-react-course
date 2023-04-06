@@ -2,6 +2,9 @@ import reactRefresh from '@vitejs/plugin-react-refresh';
 import eslintPlugin from 'vite-plugin-eslint';
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import dotenv from 'dotenv';
+
+const env = dotenv.config().parsed;
 
 export default defineConfig({
   test: {
