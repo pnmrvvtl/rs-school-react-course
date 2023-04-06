@@ -72,15 +72,14 @@ export default function ProductForm() {
             {
               id: Math.random(),
               title,
-              price: Number(data.price),
-              rating: Number(data.rating),
-              discountPercentage: Number(data.discount),
-              category: data.category,
-              brand: data.brand,
-              images: [reader.result as string],
-              description: '',
-              stock: 1,
-              thumbnail: '',
+              image: reader.result as string,
+              parameters: [
+                ['price', data.price.toString()],
+                ['rating', data.rating.toString()],
+                ['discount', data.discount.toString()],
+                ['category', data.category],
+                ['brand', data.brand],
+              ],
             },
           ]);
           reset();

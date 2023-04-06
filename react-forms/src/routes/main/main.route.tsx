@@ -8,7 +8,6 @@ import { Card, Search } from '../../components';
 import { SearchContext } from '../../contexts/search/search.context';
 //api
 import { ResultMeal } from '../../types/meal-api.type';
-import MealsApi from '../../api/meals.api';
 
 export function Main() {
   const [products, setProducts] = useState<ResultMeal[]>([]);
@@ -16,15 +15,15 @@ export function Main() {
   const limit = 10;
 
   useEffect(() => {
-    new MealsApi()
-      .getMealsByParameters({
-        query: searchString || 'a',
-        type: ' main course, side dish, dessert, salad, bread, breakfast, soup',
-        addRecipeInformation: true,
-        number: limit,
-        sort: 'random',
-      })
-      .then((res) => setProducts(res.results));
+    // new MealsApi()
+    //   .getMealsByParameters({
+    //     query: searchString || 'a',
+    //     type: ' main course, side dish, dessert, salad, bread, breakfast, soup',
+    //     addRecipeInformation: true,
+    //     number: limit,
+    //     sort: 'random',
+    //   })
+    //   .then((res) => setProducts(res.results));
   }, [searchString]);
 
   return (
