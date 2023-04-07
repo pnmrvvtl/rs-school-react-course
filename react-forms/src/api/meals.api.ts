@@ -5,6 +5,7 @@ import {
   MealByIdResponse,
   MealsByParametersQuery,
   MealsByParametersResponse,
+  ResultMeal,
 } from '../types/meal-api.type';
 
 export default class MealsApi {
@@ -52,10 +53,7 @@ export default class MealsApi {
     );
   }
 
-  async getMealById(mealId: number): Promise<MealByIdResponse> {
-    return await this.getData<undefined, MealByIdResponse>(
-      `recipes/${mealId}/information`,
-      undefined
-    );
+  async getMealById(mealId: number): Promise<ResultMeal> {
+    return await this.getData<undefined, ResultMeal>(`recipes/${mealId}/information`, undefined);
   }
 }

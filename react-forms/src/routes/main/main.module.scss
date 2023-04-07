@@ -9,3 +9,21 @@
     gap: 20px;
   }
 }
+
+.popup {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  background-color: $sub-color;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  height: auto;
+}
+
+.popupContent {
+  max-height: 500px; // example value
+  overflow-y: auto;
+}

@@ -8,7 +8,7 @@ import styles from './card.module.scss';
 export function Card(props: CardProps) {
   const { title, image, parameters } = props.product;
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={props.onClick}>
       <img className={styles['main-image']} src={image} alt={`${title}`} />
       <div className={styles['buttons']}>
         <input type={'button'} className={styles['buy-button']} value={'BUY NOW'} />

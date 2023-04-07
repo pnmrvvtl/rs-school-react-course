@@ -33,8 +33,16 @@
     color: $font-color-inverted;
     transition: border-radius 0.5s ease;
 
+    &::placeholder {
+      color: $font-color-inverted;
+    }
+
     &:focus, &:hover {
       border-radius: 10px;
+
+      &::placeholder {
+        color: $font-color;
+      }
     }
   }
 

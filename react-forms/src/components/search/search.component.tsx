@@ -35,6 +35,7 @@ export default function Search() {
         placeholder={'Enter your search query...'}
         value={inputSearchString}
         onChange={(event) => setInputSearchString(event.target.value)}
+        onKeyUp={(event) => event.key === 'Enter' && setSearchString(inputSearchString)}
       />
       <input
         className={styles['search-button']}

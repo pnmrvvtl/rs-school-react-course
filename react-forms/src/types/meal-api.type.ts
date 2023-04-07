@@ -266,4 +266,5 @@ export interface MealByIdResponse {
   title: string;
   image: string;
   readyInMinutes: number;
+  summary: string;
 }

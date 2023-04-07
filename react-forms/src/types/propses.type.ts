@@ -1,10 +1,11 @@
 import { Product } from './product.type';
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { FormValues } from './form-values.type';
 
 export interface CardProps {
   product: Product;
+  onClick: MouseEventHandler<HTMLDivElement>;
 }
 
 export interface NavigationProps {
