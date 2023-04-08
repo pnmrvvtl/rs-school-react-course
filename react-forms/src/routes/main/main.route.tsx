@@ -1,49 +1,82 @@
 //libs
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 //styles
 import styles from './main.module.scss';
 //components
-import { Card, Search } from '../../components';
+import { Card, Search, Skeleton } from '../../components';
 //contexts
 import { SearchContext } from '../../contexts/search/search.context';
 //api
-import { ResultMeal } from '../../types/meal-api.type';
-import Skeleton from '../../components/skeleton/skeleton.component';
-import ReactDOM from 'react-dom';
 import MealsApi from '../../api/meals.api';
+//types
+import { ResultMeal } from '../../types/meal-api.type';
 
 export function Main() {
   const [products, setProducts] = useState<ResultMeal[] | null>(null);
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
   const [selectedProductData, setSelectedProductData] = useState<ResultMeal | null>(null);
   const popupRef = useRef<HTMLDivElement>(null);
   const { searchString } = useContext(SearchContext);
+
   const LIMIT_MEALS = 10;
 
   const handleCardClick = (id: number) => {
-    setSelectedProductId(id);
+    if (isPopupOpened || selectedProductId) {
+      handleClosePopup();
+    } else {
+      setSelectedProductId(id);
+      setIsPopupOpened(true);
+    }
   };
 
   const handleClosePopup = () => {
     setSelectedProductId(null);
+    setIsPopupOpened(false);
+    setSelectedProductData(null);
   };
 
   const renderPopup = () => {
-    if (selectedProductId) {
+    const body = document.body,
+      html = document.documentElement;
+    if (isPopupOpened) {
+      window.scrollTo(0, 0);
       return ReactDOM.createPortal(
-        <div className={styles.popup} ref={popupRef} onClick={handleClosePopup}>
-          <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeButton} onClick={handleClosePopup}>
-              Close
+        <div
+          className={styles.popup}
+          ref={popupRef}
+          onClick={handleClosePopup}
+          style={{
+            height: `${Math.max(
+              body.scrollHeight,
+              body.offsetHeight,
+              html.clientHeight,
+              html.scrollHeight,
+              html.offsetHeight
+            )}px`,
+          }}
+        >
+          <div className={styles['popup-content']} onClick={(e) => e.stopPropagation()}>
+            <button className={styles['close-button']} onClick={handleClosePopup}>
+              X
             </button>
             {selectedProductData ? (
               <>
                 <h2>Product Details</h2>
-                <img src={selectedProductData.image} alt="" height={200} width={200} />
+                <img src={selectedProductData.image} alt={selectedProductData.title} />
                 <p dangerouslySetInnerHTML={{ __html: selectedProductData?.summary }}></p>
+                <hr />
+                <p>
+                  {selectedProductData.extendedIngredients.map((el) => (
+                    <p key={el.id}>
+                      {el.name.toUpperCase()}, {el.amount}
+                    </p>
+                  ))}
+                </p>
               </>
             ) : (
-              <h2> Loading </h2>
+              <h2> Loading... </h2>
             )}
           </div>
         </div>,
@@ -53,20 +86,10 @@ export function Main() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
-        handleClosePopup();
-      }
-    };
     if (selectedProductId) {
       setSelectedProductData(null);
-      document.addEventListener('mousedown', handleClickOutside);
       new MealsApi().getMealById(selectedProductId).then((res) => setSelectedProductData(res));
     }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
   }, [selectedProductId]);
 
   useEffect(() => {
@@ -74,7 +97,7 @@ export function Main() {
     new MealsApi()
       .getMealsByParameters({
         query: searchString ? searchString : 'a',
-        type: 'main course, side dish, dessert, salad, bread, breakfast, soup',
+        type: 'main course,side dish,dessert,salad,bread,breakfast,soup',
         addRecipeInformation: true,
         number: LIMIT_MEALS,
         sort: 'random',

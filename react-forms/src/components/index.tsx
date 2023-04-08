@@ -5,5 +5,6 @@ import Footer from './footer/footer.component';
 import InputText from './input-text/input-text.component';
 import InputSelect from './input-select/input-select.component';
 import ProductForm from './product-form/product-form.component';
+import Skeleton from './skeleton/skeleton.component';
 
-export { Card, Search, Header, Footer, InputText, InputSelect, ProductForm };
+export { Card, Search, Header, Footer, InputText, InputSelect, ProductForm, Skeleton };
