@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 //styles
 import styles from './main.module.scss';
 //components
-import { Card, Search, Skeleton } from '../../components';
+import { Card, Popup, Search, Skeleton } from '../../components';
 //contexts
 import { SearchContext } from '../../contexts/search/search.context';
 //api
@@ -38,48 +38,15 @@ export function Main() {
   };
 
   const renderPopup = () => {
-    const body = document.body,
-      html = document.documentElement;
     if (isPopupOpened) {
       window.scrollTo(0, 0);
       return ReactDOM.createPortal(
-        <div
-          className={styles.popup}
+        <Popup
           ref={popupRef}
-          onClick={handleClosePopup}
-          style={{
-            height: `${Math.max(
-              body.scrollHeight,
-              body.offsetHeight,
-              html.clientHeight,
-              html.scrollHeight,
-              html.offsetHeight
-            )}px`,
-          }}
-        >
-          <div className={styles['popup-content']} onClick={(e) => e.stopPropagation()}>
-            <button className={styles['close-button']} onClick={handleClosePopup}>
-              X
-            </button>
-            {selectedProductData ? (
-              <>
-                <h2>Product Details</h2>
-                <img src={selectedProductData.image} alt={selectedProductData.title} />
-                <p dangerouslySetInnerHTML={{ __html: selectedProductData?.summary }}></p>
-                <hr />
-                <p>
-                  {selectedProductData.extendedIngredients.map((el) => (
-                    <p key={el.id}>
-                      {el.name.toUpperCase()}, {el.amount}
-                    </p>
-                  ))}
-                </p>
-              </>
-            ) : (
-              <h2> Loading... </h2>
-            )}
-          </div>
-        </div>,
+          onCloseButtonClick={handleClosePopup}
+          onPopupClick={handleClosePopup}
+          selectedProductData={selectedProductData}
+        />,
         document.body
       );
     }

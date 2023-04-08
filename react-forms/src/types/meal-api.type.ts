@@ -132,13 +132,13 @@ export interface ResultMeal {
   cuisines: string[];
   dishTypes: string[];
   diets: string[];
-  occasions: any[];
+  occasions: string[];
   analyzedInstructions: AnalyzedInstruction[];
   usedIngredientCount: number;
   missedIngredientCount: number;
   missedIngredients: MissedIngredient[];
   usedIngredients: UsedIngredient[];
-  unusedIngredients: any[];
+  unusedIngredients: UsedIngredient[];
   likes: number;
   nutrition: Nutrition;
 }
@@ -239,12 +239,12 @@ export interface UsedIngredient {
 
 export interface Nutrition {
   // nutrients: Nutrient[]
-  caloricBreakdown: any;
-  flavonoids: any;
+  caloricBreakdown: string;
+  flavonoids: string;
   ingredients: { name: string }[];
   nutrients: Nutrient[];
-  properties: any;
-  weightPerServing: any;
+  properties: string;
+  weightPerServing: string;
 }
 
 export interface Nutrient {

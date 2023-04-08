@@ -5,7 +5,7 @@ import { FormValues } from './form-values.type';
 
 export interface CardProps {
   product: Product;
-  onClick: MouseEventHandler<HTMLDivElement>;
+  onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
 export interface NavigationProps {

@@ -2,7 +2,6 @@
 import axios from 'axios';
 //types
 import {
-  MealByIdResponse,
   MealsByParametersQuery,
   MealsByParametersResponse,
   ResultMeal,
