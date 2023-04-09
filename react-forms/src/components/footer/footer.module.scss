@@ -1,0 +1,27 @@
+.footer {
+  background-color: $main-color;
+  width: 100%;
+  height: 60px;
+  bottom: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 2rem;
+
+  a {
+    text-decoration: none;
+    color: $font-color;
+
+    @include link-on-hover;
+  }
+
+  .logo {
+    background-image: url("https://rs.school/images/rs_school.svg");
+    width: 100px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+

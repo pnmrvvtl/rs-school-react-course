@@ -1,0 +1,19 @@
+.container {
+  @include container;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  font-size: 2rem;
+
+  a {
+    color: $main-color;
+    text-decoration: underline;
+  }
+
+  p {
+    text-align: center;
+  }
+}
