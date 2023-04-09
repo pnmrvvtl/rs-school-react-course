@@ -1,5 +1,5 @@
 //libs
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 //styles
 import styles from './main.module.scss';
@@ -17,7 +17,6 @@ export function Main() {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
   const [selectedProductData, setSelectedProductData] = useState<ResultMeal | null>(null);
-  const popupRef = useRef<HTMLDivElement>(null);
   const { searchString } = useContext(SearchContext);
 
   const LIMIT_MEALS = 10;
@@ -42,7 +41,6 @@ export function Main() {
       window.scrollTo(0, 0);
       return ReactDOM.createPortal(
         <Popup
-          ref={popupRef}
           onCloseButtonClick={handleClosePopup}
           onPopupClick={handleClosePopup}
           selectedProductData={selectedProductData}
@@ -55,7 +53,12 @@ export function Main() {
   useEffect(() => {
     if (selectedProductId) {
       setSelectedProductData(null);
-      new MealsApi().getMealById(selectedProductId).then((res) => setSelectedProductData(res));
+      new MealsApi()
+        .getMealById(selectedProductId)
+        .then((res) => setSelectedProductData(res))
+        .catch((error) =>
+          alert(`You have error in loading your meal, ${error}. Try reload page and try again.`)
+        );
     }
   }, [selectedProductId]);
 
@@ -69,7 +72,12 @@ export function Main() {
         number: LIMIT_MEALS,
         sort: 'random',
       })
-      .then((res) => setProducts(res.results));
+      .then((res) => setProducts(res.results))
+      .catch((error) =>
+        alert(
+          `You have error in loading your list of meals, ${error}. Try reload page and try again.`
+        )
+      );
   }, [searchString]);
 
   return (
@@ -89,9 +97,9 @@ export function Main() {
                 image: el.image,
                 title: el.title,
                 parameters: [
-                  ['ready, minutes', el.readyInMinutes?.toString()],
-                  ['price, $', el.pricePerServing?.toString()],
-                  ['likes', el.aggregateLikes?.toString()],
+                  ['ready, minutes', el.readyInMinutes!.toString()],
+                  ['price, $', el.pricePerServing!.toString()],
+                  ['likes', el.aggregateLikes!.toString()],
                   ['vegetarian', el.vegetarian ? 'yes' : 'no'],
                 ],
               }}

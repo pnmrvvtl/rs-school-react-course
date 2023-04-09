@@ -6,7 +6,6 @@ import { ResultMeal } from '../../types/meal-api.type';
 import styles from './popup.module.scss';
 
 export default function Popup(props: {
-  ref: React.RefObject<HTMLDivElement>;
   onCloseButtonClick: MouseEventHandler<HTMLButtonElement>;
   onPopupClick: MouseEventHandler<HTMLDivElement>;
   selectedProductData: ResultMeal | null;
@@ -17,7 +16,6 @@ export default function Popup(props: {
   return (
     <div
       className={styles.popup}
-      ref={props.ref}
       onClick={props.onPopupClick}
       style={{
         height: `${Math.max(
@@ -37,16 +35,16 @@ export default function Popup(props: {
           <>
             <h2>Product Details</h2>
             <img src={props.selectedProductData.image} alt={props.selectedProductData.title} />
-            <p dangerouslySetInnerHTML={{ __html: props.selectedProductData?.summary }}></p>
+            <p dangerouslySetInnerHTML={{ __html: props.selectedProductData.summary }}></p>
             <hr />
-            <p>
+            <div>
               <strong>INGREDIENTS:</strong>
-              {props.selectedProductData.extendedIngredients.map((el) => (
+              {props.selectedProductData.extendedIngredients!.map((el) => (
                 <p key={el.id}>
-                  {el.name.toUpperCase()}, {el.amount}
+                  {el.name.toUpperCase()}, {el.amount} {el.unit}
                 </p>
               ))}
-            </p>
+            </div>
           </>
         ) : (
           <h2> Loading... </h2>

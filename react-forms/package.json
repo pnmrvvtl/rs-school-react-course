@@ -33,6 +33,7 @@
     "@vitest/coverage-c8": "^0.29.3",
     "dotenv-webpack": "^8.0.1",
     "jsdom": "^21.1.1",
+    "msw": "^1.2.1",
     "nyc": "^15.1.0",
     "sass": "^1.59.2",
     "sass-loader": "^13.2.0",

@@ -31,7 +31,7 @@ export default class MealsApi {
       url: `${this.baseUrl}/${path}`,
       params: queryParams,
       headers: {
-        'X-RapidAPI-Key': '10cad0d3femshd472710c018634bp1633dbjsnca6775c47de1',
+        'X-RapidAPI-Key': import.meta.env.VITE_MEALS_API_KEY,
         'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
       },
     };

@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: transparent;
+  background-color: rgba($sub-color, 0.50);
   border-radius: 5px;
   z-index: 9999;
   padding: 100px;
@@ -34,10 +34,9 @@
   }
 
   img {
-    margin: 0 auto;
     width: 300px;
     border-radius: 20px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
   }
 
   .close-button {
