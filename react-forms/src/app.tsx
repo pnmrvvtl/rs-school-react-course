@@ -12,7 +12,7 @@ import { ProductsContext } from './contexts/products/products.context';
 import { Product } from './types/product.type';
 
 export default function App() {
-  const [searchString, setSearchString] = useState('');
+  const [searchString, setSearchString] = useState(localStorage.getItem('search') || '');
   const [products, setProducts] = useState<Product[]>([]);
 
   return (
