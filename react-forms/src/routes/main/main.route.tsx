@@ -11,13 +11,16 @@ import { SearchContext } from '../../contexts/search/search.context';
 import MealsApi from '../../api/meals.api';
 //types
 import { ResultMeal } from '../../types/meal-api.type';
+import { useAppDispatch, useAppSelector } from '../../store/store.redux';
+import { fetchMealsByParameters } from '../../store/slices/meals.slice';
+import { setQuery } from '../../store/slices/search.slice';
 
 export function Main() {
+  const searchString = useAppSelector((state) => state.search.query);
   const [products, setProducts] = useState<ResultMeal[] | null>(null);
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
   const [selectedProductData, setSelectedProductData] = useState<ResultMeal | null>(null);
-  const { searchString } = useContext(SearchContext);
 
   const LIMIT_MEALS = 10;
 

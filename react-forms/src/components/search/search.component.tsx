@@ -2,13 +2,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 //styles
 import styles from './search.module.scss';
-//contexts
-import { SearchContext } from '../../contexts/search/search.context';
-//type
-
+import { useAppDispatch } from '../../store/store.redux';
+import { setQuery } from '../../store/slices/search.slice';
 export default function Search() {
   const [inputSearchString, setInputSearchString] = useState<string>('');
-  const { setSearchString } = useContext(SearchContext);
+  // const { setSearchString } = useContext(SearchContext);
+  const dispatch = useAppDispatch();
 
   window.onbeforeunload = () => {
     localStorage.setItem('search', inputSearchString);
@@ -35,7 +34,7 @@ export default function Search() {
         placeholder={'Enter your search query...'}
         value={inputSearchString}
         onChange={(event) => setInputSearchString(event.target.value)}
-        onKeyUp={(event) => event.key === 'Enter' && setSearchString(inputSearchString)}
+        onKeyUp={(event) => event.key === 'Enter' && dispatch(setQuery(inputSearchString))}
       />
       <input
         className={styles['search-button']}
@@ -43,7 +42,7 @@ export default function Search() {
         width={50}
         height={50}
         value={'SEARCH'}
-        onClick={() => setSearchString(inputSearchString)}
+        onClick={() => dispatch(setQuery(inputSearchString))}
       />
     </div>
   );
