@@ -5,16 +5,17 @@ import ReactDOM from 'react-dom';
 import styles from './main.module.scss';
 //components
 import { Card, Popup, Search, Skeleton } from '../../components';
-//types
-import { ResultMeal } from '../../types/meal-api.type';
+//redux
 import { useAppSelector } from '../../store/store.redux';
-import { useGetMealsByParametersQuery } from '../../api/meals.rtk-api';
+import { useGetMealByIdQuery, useGetMealsByParametersQuery } from '../../api/meals.rtk-api';
+import { ResultMeal } from '../../types/meal-api.type';
 
 export function Main() {
-  const searchString = useAppSelector((state) => state.search.query);
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
   const [selectedProductData, setSelectedProductData] = useState<ResultMeal | null>(null);
+
+  const searchString = useAppSelector((state) => state.search.query);
   const { isLoading, data } = useGetMealsByParametersQuery({
     query: searchString ? searchString : 'a',
     type: 'main course,side dish,dessert,salad,bread,breakfast,soup',
@@ -22,6 +23,10 @@ export function Main() {
     number: 10,
     sort: 'rating',
   });
+  const { data: fetchedProductData } = useGetMealByIdQuery(selectedProductId ?? 0, {
+    skip: selectedProductId === null,
+  });
+
   const products = data ? data.results : [];
   const LIMIT_MEALS = 10;
 
@@ -29,15 +34,18 @@ export function Main() {
     if (isPopupOpened || selectedProductId) {
       handleClosePopup();
     } else {
+      if (fetchedProductData && id === fetchedProductData.id) {
+        setSelectedProductData(fetchedProductData);
+      }
       setSelectedProductId(id);
       setIsPopupOpened(true);
     }
   };
 
   const handleClosePopup = () => {
+    setSelectedProductData(null);
     setSelectedProductId(null);
     setIsPopupOpened(false);
-    setSelectedProductData(null);
   };
 
   const renderPopup = () => {
@@ -54,19 +62,14 @@ export function Main() {
     }
   };
 
-  useEffect(() => {
-    if (selectedProductId) {
-      setSelectedProductData(null);
-      // new MealsApi()
-      //   .getMealById(selectedProductId)
-      //   .then((res) => setSelectedProductData(res))
-      //   .catch((error) =>
-      //     alert(`You have error in loading your meal, ${error}. Try reload page and try again.`)
-      //   );
-    }
-  }, [selectedProductId]);
+  useEffect(() => {}, [selectedProductId]);
 
   useEffect(() => {}, [searchString]);
+
+  useEffect(
+    () => fetchedProductData && setSelectedProductData(fetchedProductData),
+    [fetchedProductData]
+  );
 
   return (
     <div className={styles.container}>

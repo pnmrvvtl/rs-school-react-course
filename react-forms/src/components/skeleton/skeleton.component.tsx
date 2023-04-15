@@ -9,7 +9,7 @@ const Skeleton = () => (
   <ContentLoader
     className={styles.container}
     speed={2}
-    width={230}
+    width={240}
     height={350}
     viewBox="0 0 200 300"
     backgroundColor="#a8dadc"

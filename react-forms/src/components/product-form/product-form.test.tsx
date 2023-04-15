@@ -1,12 +1,13 @@
 //libs
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { vitest } from 'vitest';
+import { vitest, describe, test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 //components
 import { ProductForm } from '../index';
-//contexts
-import { ProductsContext } from '../../contexts/products/products.context';
+//redux
+import { Provider } from 'react-redux';
+import store from '../../store/store.redux';
 
 describe('product form', () => {
   test('submitting the form with valid data should add a new product to the list', async () => {
@@ -15,11 +16,7 @@ describe('product form', () => {
 
     // render the form
     render(<ProductForm />, {
-      wrapper: ({ children }) => (
-        <ProductsContext.Provider value={{ setProducts, products: [] }}>
-          {children}
-        </ProductsContext.Provider>
-      ),
+      wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
     // fill in the form inputs
@@ -39,17 +36,21 @@ describe('product form', () => {
     fireEvent.click(screen.getByText(/add product/i));
 
     // verify that the form is cleared
-    expect(screen.getByLabelText(/product title/i)).toHaveValue('Product 1');
-    expect(screen.getByLabelText(/price/i)).toHaveValue('10');
-    expect(screen.getByLabelText(/discount/i)).toHaveValue('5');
-    expect(screen.getByLabelText(/rating/i)).toHaveValue('4');
-    expect(screen.getByLabelText(/Enter product produce date/i)).toHaveValue('1998-01-01');
-    expect(screen.getByLabelText(/brand/i)).toHaveValue('Apple');
-    expect(screen.getByLabelText(/category/i)).toHaveValue('Phone');
+    expect((screen.getByLabelText(/product title/i) as HTMLInputElement).value).toMatch(
+      /Product 1/i
+    );
+    expect((screen.getByLabelText(/price/i) as HTMLInputElement).value).toMatch('10');
+    expect((screen.getByLabelText(/discount/i) as HTMLInputElement).value).toMatch('5');
+    expect((screen.getByLabelText(/rating/i) as HTMLInputElement).value).toMatch('4');
+    expect(
+      (screen.getByLabelText(/Enter product produce date/i) as HTMLInputElement).value
+    ).toMatch('1998-01-01');
+    expect((screen.getByLabelText(/brand/i) as HTMLInputElement).value).toMatch('Apple');
+    expect((screen.getByLabelText(/category/i) as HTMLInputElement).value).toMatch('Phone');
 
     const user = userEvent.setup();
     await user.click(screen.getByText(/add product/i));
 
-    expect(screen.getByText(/product - added/i)).toBeInTheDocument();
+    expect(screen.getByText(/product - added/i)).toBeDefined();
   });
 });
