@@ -1,16 +1,17 @@
 //libs
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 //styles
 import styles from './product-form.module.scss';
-//contexts
-import { ProductsContext } from '../../contexts/products/products.context';
 //types
 import { FormValues } from '../../types/form-values.type';
 //components
 import { InputSelect, InputText } from '../index';
+//redux
+import { useAppDispatch } from '../../store/store.redux';
+import { addProduct } from '../../store/slices/products.slice';
 
 const AddProductSchema = yup.object().shape({
   title: yup.string().required('Please input title'),
@@ -53,7 +54,7 @@ export default function ProductForm() {
     resolver: yupResolver(AddProductSchema),
   });
   const [isConfirmed, setIsConfirmed] = useState(false);
-  const { setProducts, products } = useContext(ProductsContext);
+  const dispatch = useAppDispatch();
 
   function onSubmit(data: FormValues) {
     if (Object.keys(errors).length === 0) {
@@ -67,9 +68,8 @@ export default function ProductForm() {
           const title = data.publish
             ? `${state} (${data.producedAt.toLocaleDateString()}) ${data.title}`
             : `${state} ${data.title}`;
-          setProducts([
-            ...products,
-            {
+          dispatch(
+            addProduct({
               id: Math.random(),
               title,
               image: reader.result as string,
@@ -80,8 +80,8 @@ export default function ProductForm() {
                 ['category', data.category],
                 ['brand', data.brand],
               ],
-            },
-          ]);
+            })
+          );
           reset();
           setIsConfirmed(true);
           setTimeout(() => setIsConfirmed(false), 7000);

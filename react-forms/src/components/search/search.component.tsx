@@ -1,12 +1,12 @@
 //libs
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //styles
 import styles from './search.module.scss';
 import { useAppDispatch } from '../../store/store.redux';
 import { setQuery } from '../../store/slices/search.slice';
+
 export default function Search() {
   const [inputSearchString, setInputSearchString] = useState<string>('');
-  // const { setSearchString } = useContext(SearchContext);
   const dispatch = useAppDispatch();
 
   window.onbeforeunload = () => {
