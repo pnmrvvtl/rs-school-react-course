@@ -1,7 +1,7 @@
 //libs
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { vitest, describe, test, expect } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import userEvent from '@testing-library/user-event';
 //components
 import { ProductForm } from '../index';
@@ -11,9 +11,6 @@ import store from '../../store/store.redux';
 
 describe('product form', () => {
   test('submitting the form with valid data should add a new product to the list', async () => {
-    // mock the `setProducts` function
-    const setProducts = vitest.fn();
-
     // render the form
     render(<ProductForm />, {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,

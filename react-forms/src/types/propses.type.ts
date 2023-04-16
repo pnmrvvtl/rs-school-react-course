@@ -1,7 +1,9 @@
-import { Product } from './product.type';
+//libs
 import { MouseEventHandler, ReactNode } from 'react';
 import { UseFormRegister } from 'react-hook-form';
+//types
 import { FormValues } from './form-values.type';
+import { Product } from './product.type';
 
 export interface CardProps {
   product: Product;

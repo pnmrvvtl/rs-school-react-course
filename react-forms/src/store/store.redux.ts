@@ -4,7 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 //slices
 import { searchReducer, productsReducer } from './slices';
 //rtk api
-import { mealsApi } from '../api/meals.rtk-api';
+import { mealsApi } from './api/meals.api';
 
 const store = configureStore({
   reducer: {

@@ -7,55 +7,55 @@ import styles from './main.module.scss';
 import { Card, Popup, Search, Skeleton } from '../../components';
 //redux
 import { useAppSelector } from '../../store/store.redux';
-import { useGetMealByIdQuery, useGetMealsByParametersQuery } from '../../api/meals.rtk-api';
-import { ResultMeal } from '../../types/meal-api.type';
+import { useGetMealByIdQuery, useGetMealsByParametersQuery } from '../../store/api/meals.api';
 
 export function Main() {
+  const LIMIT_MEALS = 10;
+
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
-  const [selectedProductData, setSelectedProductData] = useState<ResultMeal | null>(null);
 
   const searchString = useAppSelector((state) => state.search.query);
-  const { isLoading, data } = useGetMealsByParametersQuery({
+  const { isFetching, data } = useGetMealsByParametersQuery({
     query: searchString ? searchString : 'a',
     type: 'main course,side dish,dessert,salad,bread,breakfast,soup',
     addRecipeInformation: true,
-    number: 10,
+    number: LIMIT_MEALS,
     sort: 'rating',
   });
-  const { data: fetchedProductData } = useGetMealByIdQuery(selectedProductId ?? 0, {
-    skip: selectedProductId === null,
-  });
-
   const products = data ? data.results : [];
-  const LIMIT_MEALS = 10;
+
+  const { data: fetchedProductData, isFetching: isPopFetching } = useGetMealByIdQuery(
+    selectedProductId ?? 0,
+    {
+      skip: selectedProductId === null,
+    }
+  );
 
   const handleCardClick = (id: number) => {
     if (isPopupOpened || selectedProductId) {
       handleClosePopup();
     } else {
-      if (fetchedProductData && id === fetchedProductData.id) {
-        setSelectedProductData(fetchedProductData);
-      }
       setSelectedProductId(id);
       setIsPopupOpened(true);
     }
   };
 
   const handleClosePopup = () => {
-    setSelectedProductData(null);
     setSelectedProductId(null);
     setIsPopupOpened(false);
   };
 
   const renderPopup = () => {
     if (isPopupOpened) {
-      window.scrollTo(0, 0);
+      scrollTo(0, 0);
       return ReactDOM.createPortal(
         <Popup
           onCloseButtonClick={handleClosePopup}
           onPopupClick={handleClosePopup}
-          selectedProductData={selectedProductData}
+          selectedProductData={
+            isPopFetching ? null : fetchedProductData ? fetchedProductData : null
+          }
         />,
         document.body
       );
@@ -66,21 +66,16 @@ export function Main() {
 
   useEffect(() => {}, [searchString]);
 
-  useEffect(
-    () => fetchedProductData && setSelectedProductData(fetchedProductData),
-    [fetchedProductData]
-  );
-
   return (
     <div className={styles.container}>
       <Search />
-      {isLoading && <h1 style={{ textAlign: 'center' }}>Loading...</h1>}
+      {isFetching && <h1 style={{ textAlign: 'center' }}>Loading...</h1>}
       <div className={styles.products}>
-        {isLoading ? (
+        {isFetching ? (
           Array.from({ length: LIMIT_MEALS }, (v, i) => i).map((el) => (
             <Skeleton key={el}></Skeleton>
           ))
-        ) : products.length ? (
+        ) : products?.length ? (
           products.map((el) => (
             <Card
               product={{

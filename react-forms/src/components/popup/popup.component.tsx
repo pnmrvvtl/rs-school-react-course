@@ -39,8 +39,8 @@ export default function Popup(props: {
             <hr />
             <div>
               <strong>INGREDIENTS:</strong>
-              {props.selectedProductData.extendedIngredients!.map((el) => (
-                <p key={el.id}>
+              {props.selectedProductData.extendedIngredients!.map((el, idx) => (
+                <p key={idx}>
                   {el.name.toUpperCase()}, {el.amount} {el.unit}
                 </p>
               ))}

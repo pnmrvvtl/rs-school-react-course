@@ -1,9 +1,11 @@
+//redux
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+//types
 import {
   MealsByParametersQuery,
   MealsByParametersResponse,
   ResultMeal,
-} from '../types/meal-api.type';
+} from '../../types/meal-api.type';
 
 export const mealsApi = createApi({
   reducerPath: 'mealsApi',

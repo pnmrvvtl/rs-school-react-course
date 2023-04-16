@@ -1,3 +1,4 @@
+//types
 import { Product } from './product.type';
 
 export interface AppState {

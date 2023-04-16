@@ -2,29 +2,15 @@
 import React, { useEffect, useState } from 'react';
 //styles
 import styles from './search.module.scss';
-import { useAppDispatch } from '../../store/store.redux';
+import { useAppDispatch, useAppSelector } from '../../store/store.redux';
 import { setQuery } from '../../store/slices/search.slice';
 
 export default function Search() {
   const [inputSearchString, setInputSearchString] = useState<string>('');
   const dispatch = useAppDispatch();
+  const searchString = useAppSelector((state) => state.search.query);
 
-  window.onbeforeunload = () => {
-    localStorage.setItem('search', inputSearchString);
-  };
-
-  useEffect(() => {
-    const search = localStorage.getItem('search');
-    if (search) {
-      setInputSearchString(search);
-    }
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('search', inputSearchString);
-    };
-  }, [inputSearchString]);
+  useEffect(() => setInputSearchString(searchString), [searchString]);
 
   return (
     <div className={styles.container}>
