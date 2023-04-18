@@ -26,6 +26,7 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/dotenv-webpack": "^7.0.3",
+    "@types/express": "^4.17.17",
     "@types/node": "^18.15.11",
     "@types/react-content-loader": "^4.0.0",
     "@types/sass": "^1.45.0",
@@ -60,6 +61,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "express": "^4.18.2",
     "normalize.css": "^8.0.1",
     "prettier": "^2.8.4",
     "react": "^18.2.0",
@@ -68,6 +70,7 @@
     "react-hook-form": "^7.43.8",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
+    "vite-plugin-ssr": "^0.4.114",
     "vitest": "^0.29.3",
     "yup": "^1.0.2"
   }
