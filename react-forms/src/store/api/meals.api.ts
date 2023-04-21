@@ -12,7 +12,7 @@ export const mealsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
     prepareHeaders(headers) {
-      headers.set('X-RapidAPI-Key', import.meta.env.VITE_MEALS_API_KEY);
+      headers.set('X-RapidAPI-Key', '10cad0d3femshd472710c018634bp1633dbjsnca6775c47de1');
       headers.set('X-RapidAPI-Host', 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com');
       return headers;
     },

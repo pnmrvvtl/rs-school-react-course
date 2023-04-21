@@ -1,15 +1,16 @@
 //libs
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+//redux
+import store from './store/store.redux';
+import { Provider } from 'react-redux';
+//router
 import { BrowserRouter } from 'react-router-dom';
 //components
 import App from './app';
-//redux
-import { Provider } from 'react-redux';
-//store
-import store from './store/store.redux';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.hydrateRoot(
+  document.getElementById('root') as HTMLElement,
   <Provider store={store}>
     <BrowserRouter>
       <App />

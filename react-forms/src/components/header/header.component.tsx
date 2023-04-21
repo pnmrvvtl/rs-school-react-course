@@ -12,7 +12,7 @@ export function Header(props: WithRouterProps) {
   const { pathname } = props.location;
 
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <Link to={'/'}>
         <p className={styles.link}>MAIN</p>
       </Link>
@@ -26,7 +26,7 @@ export function Header(props: WithRouterProps) {
       <Link to={'/about'}>
         <p className={styles.link}>ABOUT</p>
       </Link>
-    </div>
+    </header>
   );
 }
 
