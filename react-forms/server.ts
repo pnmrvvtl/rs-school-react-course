@@ -21,7 +21,7 @@ async function createServer() {
       let page = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
       page = await vite.transformIndexHtml(url, page);
       //divide on parts
-      const parts = page.split(`<!--react-components-ssr-->`);
+      const parts = page.split(`<!--react-component-ssr-->`);
       const { render } = await vite.ssrLoadModule('/src/entry-server.tsx');
       //send as response
       const { pipe } = await render(url, {

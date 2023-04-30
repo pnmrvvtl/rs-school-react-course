@@ -7,6 +7,7 @@ import styles from './skeleton.module.scss';
 
 const Skeleton = () => (
   <ContentLoader
+    uniqueKey={'1'}
     className={styles.container}
     speed={2}
     width={240}

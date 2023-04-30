@@ -6,14 +6,17 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node --esm server.ts",
-    "start": "node server.ts",
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run --coverage",
-    "cypress:run": "cypress run --env coverage=true",
-    "cypress:coverage": "npx nyc report --reporter=text-summary",
-    "cypress": "cypress open",
+    "cypress": "cypress run --env --headed coverage=true && npx nyc report --reporter=text-summary",
+    "cypress:cli": "cypress open",
     "lint": "eslint . --ext .ts,.tsx"
+  },
+  "nyc": {
+    "reporter": [
+      "html"
+    ]
   },
   "prettier": {
     "endOfLine": "auto",
@@ -27,6 +30,8 @@
   "author": "Ponomarov Vitalii",
   "license": "ISC",
   "devDependencies": {
+    "@cypress/code-coverage": "^3.10.4",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -49,6 +54,7 @@
     "start-server-and-test": "^2.0.0",
     "vite": "^4.1.4",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-istanbul": "^4.0.1",
     "vite-plugin-pwa": "^0.14.4",
     "vite-react-jsx": "^1.1.2",
     "vite-tsconfig-paths": "^4.2.0"

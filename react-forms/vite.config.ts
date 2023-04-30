@@ -2,6 +2,7 @@ import reactRefresh from '@vitejs/plugin-react-refresh';
 import eslintPlugin from 'vite-plugin-eslint';
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import istanbul from 'vite-plugin-istanbul';
 
 export default defineConfig({
   test: {
@@ -12,7 +13,14 @@ export default defineConfig({
       reporter: ['text'],
     },
   },
-  plugins: [reactRefresh(), eslintPlugin()],
+  plugins: [
+    reactRefresh(),
+    eslintPlugin(),
+    istanbul({
+      cypress: true,
+      requireEnv: false,
+    }),
+  ],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),

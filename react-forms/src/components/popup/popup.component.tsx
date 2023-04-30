@@ -27,7 +27,7 @@ export default function Popup(props: {
         )}px`,
       }}
     >
-      <div className={styles['popup-content']} onClick={(e) => e.stopPropagation()}>
+      <div id="popup" className={styles['popup-content']} onClick={(e) => e.stopPropagation()}>
         <button className={styles['close-button']} onClick={props.onCloseButtonClick}>
           X
         </button>

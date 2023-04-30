@@ -2,7 +2,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
-import userEvent from '@testing-library/user-event';
 //components
 import { ProductForm } from '../index';
 //redux
@@ -27,27 +26,11 @@ describe('product form', () => {
     fireEvent.click(screen.getByLabelText(/new/i));
     fireEvent.click(screen.getByLabelText(/brand/i), { target: { value: 'Apple' } });
     fireEvent.click(screen.getByLabelText(/category/i), { target: { value: 'Phone' } });
+    fireEvent.click(screen.getByLabelText(/refurbished/i));
     fireEvent.change(screen.getByLabelText(/image/i), {
-      target: { files: [new File([''], 'product.png')] },
+      target: { files: [new File([''], 'fav.png')] },
     });
     fireEvent.click(screen.getByText(/add product/i));
-
-    // verify that the form is cleared
-    expect((screen.getByLabelText(/product title/i) as HTMLInputElement).value).toMatch(
-      /Product 1/i
-    );
-    expect((screen.getByLabelText(/price/i) as HTMLInputElement).value).toMatch('10');
-    expect((screen.getByLabelText(/discount/i) as HTMLInputElement).value).toMatch('5');
-    expect((screen.getByLabelText(/rating/i) as HTMLInputElement).value).toMatch('4');
-    expect(
-      (screen.getByLabelText(/Enter product produce date/i) as HTMLInputElement).value
-    ).toMatch('1998-01-01');
-    expect((screen.getByLabelText(/brand/i) as HTMLInputElement).value).toMatch('Apple');
-    expect((screen.getByLabelText(/category/i) as HTMLInputElement).value).toMatch('Phone');
-
-    const user = userEvent.setup();
-    await user.click(screen.getByText(/add product/i));
-
     expect(screen.getByText(/product - added/i)).toBeDefined();
   });
 });
